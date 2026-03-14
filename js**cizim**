@@ -1,0 +1,92 @@
+const canvas = document.getElementById("drawingCanvas");
+const ctx = canvas.getContext("2d");
+
+const colorPicker = document.getElementById("colorPicker");
+const brushSize = document.getElementById("brushSize");
+const clearCanvasBtn = document.getElementById("clearCanvas");
+const addDrawingPostBtn = document.getElementById("addDrawingPost");
+
+const postTitle = document.getElementById("postTitle");
+const postDescription = document.getElementById("postDescription");
+const gallery = document.getElementById("gallery");
+
+let isDrawing = false;
+
+// Başlangıçta beyaz arka plan verelim
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+function startDrawing(e) {
+  isDrawing = true;
+  draw(e);
+}
+
+function stopDrawing() {
+  isDrawing = false;
+  ctx.beginPath();
+}
+
+function draw(e) {
+  if (!isDrawing) return;
+
+  const rect = canvas.getBoundingClientRect();
+
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+
+  const x = (e.clientX - rect.left) * scaleX;
+  const y = (e.clientY - rect.top) * scaleY;
+
+  ctx.lineWidth = brushSize.value;
+  ctx.lineCap = "round";
+  ctx.strokeStyle = colorPicker.value;
+
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+}
+
+// Mouse olayları
+canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseleave", stopDrawing);
+canvas.addEventListener("mousemove", draw);
+
+// Temizleme
+clearCanvasBtn.addEventListener("click", function () {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+});
+
+// Çizimi gönderi olarak ekleme
+addDrawingPostBtn.addEventListener("click", function () {
+  const title = postTitle.value.trim();
+  const description = postDescription.value.trim();
+
+  if (title === "" || description === "") {
+    alert("Lütfen başlık ve açıklama alanlarını doldurun!");
+    return;
+  }
+
+  const imageData = canvas.toDataURL("image/png");
+
+  const postCard = document.createElement("div");
+  postCard.className = "post-card";
+
+  postCard.innerHTML = `
+    <img src="${imageData}" alt="Öğrenci çizimi">
+    <div class="post-content">
+      <h3>${title}</h3>
+      <p>${description}</p>
+    </div>
+  `;
+
+  gallery.prepend(postCard);
+
+  postTitle.value = "";
+  postDescription.value = "";
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+});
