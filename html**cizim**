@@ -1,0 +1,57 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorgin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<header class="header">
+  <h1>Benim Sanat ve Medya Sayfam</h1>
+  <p>Kendi çizimimi yapıyor,başlık ekliyor ve kart olarak paylaşıyorum 🎨</p>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h2>Çiz, Kaydet, Paylaş</h2>
+    <p>Bu sayfada kendi resmini çiz ve gönderi olarak ekle.</p>
+  </div>
+</section>  
+
+<section class="editor card">
+  <h2>Çizim Alanı</h2>
+  
+  <div class="tools">
+    <label>Renk Seç:</label>
+    <input type="color" id="colorPicker" value="#7c3aed">
+    
+    <label>Fırça Boyutu:</label>
+    <input type="range" id="brushSize" min="2" max="20" value="5">
+    
+    <button id="clearCanvas">Temizle</button>
+  </div>
+  
+  <canvas id="drawingCanvas" width="700" height="300"></canvas>
+  
+  <div class="post-form">
+    <input type="text" id="postTitle" placeholder="Çizimin başlığını yaz">
+    <textarea id="postDescription" placeholder="Çizimin hakkında kısa bir açıklama yaz "></textarea>
+    <button id="addDrawingPost">Gönderi Olarak Ekle</button>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <h2 class="gallery-title">Çizim Gönderileri</h2>
+  <div class="gallery" id="gallery">
+    <div class="post-card sample">
+      <img src="https://picsum.photos/400/220?random=10" alt="Örnek görsel">
+      <div class="post-content">
+        <h3>Örnek Gönderi</h3>
+        <p>Burada çizimler kart olarak görünecek.</p>
+      </div>
+    </div>
+  </div>  
+</section>
+
+<footer class="footer"
+        <p>@ 2026 - SUN2312 SAYFASI </p>
+</footer>
+  
+  
+
